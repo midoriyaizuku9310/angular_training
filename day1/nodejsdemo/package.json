@@ -1,0 +1,20 @@
+{
+  "name": "nodejsdemo",
+  "version": "1.0.0",
+  "description": "NodeJS demo framework",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "mido",
+  "license": "ISC",
+  "dependencies": {
+    "express": "4.18.3"
+  },
+  "devDependencies": {
+    "webpack": "5.90.3",
+    "webpack-cli": "^5.1.4"
+  }
+}
