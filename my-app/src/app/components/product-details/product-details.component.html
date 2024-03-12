@@ -1,12 +1,15 @@
 <h3>Product Details</h3>
-<button (click)="onClick()">Go To the Product List</button>
 <section ngClass="product-details-card" *ngIf="product">
-    <h2 >{{ product.title }} | {{ product.price | currency: 'INR' }}/-</h2>
+    <h2>{{ product.title }} | {{ product.price | currency: 'INR' }}/-</h2>
     <p> {{product.description}} </p>
-    <p>Rating: {{product.rating}}</p>
+    <span *ngFor="let image of product.images">
+        <img width="20%" src="{{image}}" alt={{product.name}} />
+    </span>
+</section>
 
-    <img *ngFor=" let product of product.images" [src]=product alt="product.thumbnail" width="200px" height="200px">
-    <!-- <img width="50%" src="{{product.images[2]}}" alt=""> -->
+<section>
+    <p>Add a Product</p>
+    <form>
 
-
+    </form>
 </section>

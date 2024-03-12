@@ -1,5 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Product } from '../../models/product.model';
+import { ActivatedRoute } from '@angular/router';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-product-details',
@@ -8,32 +11,66 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css'
 })
-export class ProductDetailComponent implements OnInit, OnDestroy {
+export class ProductDetailComponent implements OnInit {
 
-  @Input() product: any;
+  product: Product | any;
+  productId: number | any;
 
-  @Output()
-  goBack = new EventEmitter<void>();
+  constructor(private activatedRoute: ActivatedRoute, private productService: ProductService) {
+  }
 
-  onClick = () => {
-    this.goBack.emit();
-  };
+  ngOnInit(): void {
 
-constructor() { 
-  console.log("constructor called")
+    this.productId = this.activatedRoute.snapshot.paramMap.get('id');
+
+    this.productService.getProductById(this.productId)
+      .subscribe((response) => {
+        //console.log("details")
+        console.log(response);
+        this.product = response;
+      }
+      );
+  }
 }
 
-ngOnChanges()
-{
-console.log("ngOnChanges called")
-}
 
-ngOnInit():void{
-  console.log("ngOnInit called")
-}
 
-ngOnDestroy(){
-console.log("ngOnDestroy called")
-}
+// import { CommonModule } from '@angular/common';
+// import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+// import { Product } from '../../models/product.model';
 
-}
+// @Component({
+//   selector: 'app-product-details',
+//   standalone: true,
+//   imports: [CommonModule],
+//   templateUrl: './product-details.component.html',
+//   styleUrl: './product-details.component.css'
+// })
+// export class ProductDetailComponent implements OnInit, OnDestroy {
+
+//   @Input() product: Product | any;
+
+//   @Output()
+//   goBack = new EventEmitter<void>();
+
+//   onClick = () => {
+//     this.goBack.emit();
+//   };
+
+//   constructor() {
+//     console.log('constructor');
+//   }
+
+//   ngOnChanges() {
+//     console.log('ngOnChanges');
+//   }
+
+//   ngOnInit(): void {
+//     console.log('ngOnInit');
+//   }
+
+//   ngOnDestroy() {
+//     console.log('ngOnDestroy');
+//   }
+
+// }

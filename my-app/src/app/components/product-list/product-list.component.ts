@@ -1,4 +1,3 @@
-import { interval } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductDetailComponent } from '../product-details/product-details.component';
@@ -6,11 +5,12 @@ import { ProductService } from '../../services/product.service';
 import { FormControl, FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { Product } from '../../models/product.model';
 import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, ProductDetailComponent, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, ProductDetailComponent, FormsModule, ReactiveFormsModule, RouterLink, RouterOutlet],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
 })
@@ -31,20 +31,27 @@ export class ProductListComponent implements OnInit {
   constructor(private productService: ProductService) {
   }
 
+
   ngOnInit(): void {
 
     this.searchControl.valueChanges
       .pipe(
+        map((q) => {
+          if (q === '')
+            return 'vaman';
+          return q;
+        }),
         debounceTime(300),
         distinctUntilChanged(),
-        switchMap((qry) => { return this.productService.getGitRepos(qry) })
+        switchMap((qry: string) => { return this.productService.getGitRepos(qry) })
       )
+      // handle null
+      // .pipe()
       .subscribe((resp) => {
         console.log(resp);
         this.searchedRepos = resp;
       })
   }
-
 
   // viewAllProducts = () => {
   //   this.productService.getAllProducts()
