@@ -1,16 +1,14 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { AboutComponent } from './components/about/about.component';
-import { ProductListComponent } from './components/product-list/product-list.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
+
+import { MenubarComponent } from './components/menubar/menubar.component';
+
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HomeComponent,AboutComponent,ProductListComponent,LoginComponent,RegisterComponent],
+  imports: [RouterOutlet,MenubarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
