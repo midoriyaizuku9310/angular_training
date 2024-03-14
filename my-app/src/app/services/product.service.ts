@@ -23,6 +23,10 @@ export class ProductService {
     return this.http.get<Product>(`${this.url}/${id}`);
   };
 
+  addProduct(product: Product) {
+    console.log(product);
+    return this.http.post<Product>(`${this.url}/add`, product);
+  }
   // more methods 
 
   getGitRepos = (query: string) => {
